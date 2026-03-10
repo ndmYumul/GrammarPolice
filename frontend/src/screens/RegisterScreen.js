@@ -155,11 +155,7 @@ function RegisterScreen({ onNavigateToLogin }) {
 
           {error && <div className="error-message submit-error">{error}</div>}
 
-          <button
-            type="submit"
-            className="register-button"
-            disabled={loading}
-          >
+          <button type="submit" className="register-button" disabled={loading}>
             {loading ? <Loader size="small" /> : "Create Account"}
           </button>
 

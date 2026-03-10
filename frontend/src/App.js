@@ -1,26 +1,32 @@
 import "./App.css";
-import LoginScreen from "./LoginScreen";
-import RegisterScreen from "./RegisterScreen";
-import HomeScreen from "./HomeScreen";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 function App() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [currentScreen, setCurrentScreen] = useState("login");
 
+  // If authenticated, show home screen
+  if (isAuthenticated) {
+    return (
+      <div className="App">
+        <HomeScreen />
+      </div>
+    );
+  }
+
+  // Otherwise show login/register
   return (
     <div className="App">
       {currentScreen === "login" ? (
         <LoginScreen
           onNavigateToRegister={() => setCurrentScreen("register")}
-          onLoginSuccess={() => setCurrentScreen("home")}
-        />
-      ) : currentScreen === "register" ? (
-        <RegisterScreen
-          onNavigateToLogin={() => setCurrentScreen("login")}
-          onRegisterSuccess={() => setCurrentScreen("home")}
         />
       ) : (
-        <HomeScreen onLogout={() => setCurrentScreen("login")} />
+        <RegisterScreen onNavigateToLogin={() => setCurrentScreen("login")} />
       )}
     </div>
   );

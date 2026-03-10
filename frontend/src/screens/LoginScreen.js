@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginStart, loginSuccess, loginFailure } from "../redux/slices/authSlice";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+} from "../redux/slices/authSlice";
 import FormComponent from "../components/FormComponent";
 import Loader from "../components/Loader";
 import "./LoginScreen.css";
@@ -65,12 +69,12 @@ function LoginScreen({ onNavigateToRegister }) {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      
+
       const userData = {
         email: formData.email,
         name: formData.email.split("@")[0],
       };
-      
+
       dispatch(loginSuccess(userData));
     } catch (error) {
       console.error("Login error:", error);
@@ -109,16 +113,10 @@ function LoginScreen({ onNavigateToRegister }) {
             required
           />
 
-          {error && (
-            <div className="error-message submit-error">{error}</div>
-          )}
+          {error && <div className="error-message submit-error">{error}</div>}
 
           <button type="submit" className="login-button" disabled={loading}>
-            {loading ? (
-              <Loader size="small" />
-            ) : (
-              "Sign In"
-            )}
+            {loading ? <Loader size="small" /> : "Sign In"}
           </button>
 
           <div className="login-footer">
