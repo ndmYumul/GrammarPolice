@@ -1,6 +1,7 @@
 import "./App.css";
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
+import HomeScreen from "./HomeScreen";
 import { useState } from "react";
 
 function App() {
@@ -11,9 +12,15 @@ function App() {
       {currentScreen === "login" ? (
         <LoginScreen
           onNavigateToRegister={() => setCurrentScreen("register")}
+          onLoginSuccess={() => setCurrentScreen("home")}
+        />
+      ) : currentScreen === "register" ? (
+        <RegisterScreen
+          onNavigateToLogin={() => setCurrentScreen("login")}
+          onRegisterSuccess={() => setCurrentScreen("home")}
         />
       ) : (
-        <RegisterScreen onNavigateToLogin={() => setCurrentScreen("login")} />
+        <HomeScreen onLogout={() => setCurrentScreen("login")} />
       )}
     </div>
   );

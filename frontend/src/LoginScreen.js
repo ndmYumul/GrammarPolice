@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./LoginScreen.css";
 
-function LoginScreen({ onNavigateToRegister }) {
+function LoginScreen({ onNavigateToRegister, onLoginSuccess }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -61,11 +61,11 @@ function LoginScreen({ onNavigateToRegister }) {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Login submitted:", formData);
       // Add your login logic here
-      alert("Login successful!");
+      // Navigate to home screen on successful login
+      onLoginSuccess();
     } catch (error) {
       console.error("Login error:", error);
       setErrors({ submit: "Login failed. Please try again." });
-    } finally {
       setIsLoading(false);
     }
   };

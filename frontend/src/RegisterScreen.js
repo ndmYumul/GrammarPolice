@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterScreen.css";
 
-function RegisterScreen({ onNavigateToLogin }) {
+function RegisterScreen({ onNavigateToLogin, onRegisterSuccess }) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -77,11 +77,11 @@ function RegisterScreen({ onNavigateToLogin }) {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Registration submitted:", formData);
       // Add your registration logic here
-      alert("Registration successful!");
+      // Navigate to home screen on successful registration
+      onRegisterSuccess();
     } catch (error) {
       console.error("Registration error:", error);
       setErrors({ submit: "Registration failed. Please try again." });
-    } finally {
       setIsLoading(false);
     }
   };
