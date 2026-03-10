@@ -33,7 +33,6 @@ def getRoutes(request):
     routes = [
         "/api/v1/conversations/",
         "/api/v1/conversations/<conversation_id>/",
-        "/api/v1/chat/",
     ]
     return JsonResponse(routes, safe=False)
 

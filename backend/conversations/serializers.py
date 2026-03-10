@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import RefreshToken
 
 class ConversationSerializer(serializers.ModelSerializer):
-    _id = serializers.IntegerField(read_only=True)
+    name = serializers.SerializerMethodField(read_only=True)
+    _id = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Conversation
@@ -13,8 +14,15 @@ class ConversationSerializer(serializers.ModelSerializer):
     def get__id(self, obj):
         return obj._id
     
+    def get_name(self, obj):
+        name = obj.first_name
+        if name == '':
+            name = obj.email
+        return name
+    
 class MessageSerializer(serializers.ModelSerializer):
-    _id = serializers.IntegerField(read_only=True)
+    name = serializers.SerializerMethodField(read_only=True)
+    _id = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Message
@@ -22,3 +30,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
     def get__id(self, obj):
         return obj._id
+    
+    def get_name(self, obj):
+        name = obj.first_name
+        if name == '':
+            name = obj.email
+        return name
